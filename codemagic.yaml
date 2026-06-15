@@ -1,0 +1,17 @@
+workflows:
+  android-apk:
+    name: Android APK
+    environment:
+      flutter: stable
+      groups:
+        - gemini_keys
+    scripts:
+      - name: Write .env
+        script: |
+          echo "GEMINI_API_KEY=$GEMINI_API_KEY" > .env
+      - name: Get packages
+        script: flutter pub get
+      - name: Build APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
